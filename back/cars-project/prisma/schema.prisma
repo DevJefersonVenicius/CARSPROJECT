@@ -21,3 +21,21 @@ model Users {
   nameUser String
   @@map("users")
 }
+
+model Cars {
+  id Int @id @default(autoincrement())
+  nameCar String
+  brand String
+  model String
+  version String
+  color String
+  description String
+  accessories String
+  location String
+  phone String
+  year String
+  km String
+  price String?
+  images String?
+  @@map("cars")
+}
