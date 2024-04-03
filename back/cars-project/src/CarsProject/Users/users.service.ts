@@ -161,7 +161,7 @@ export class UsersService {
       } return favorites
     } 
     
-    async getUserWithFavoriteCars(userId: number): Promise<{user: Users, favoriteCars: Cars[]}> {
+    async getUserWithFavoriteCars(userId: number): Promise<{user: Users, favoriteCars: Cars[]} | {message:string}> {
       if (typeof userId !== 'number' || isNaN(userId)) {
         throw new Error('Parâmetros em branco ou dado passado não compatível.')
       }
@@ -183,7 +183,11 @@ export class UsersService {
           car: true,
         },
       }).then(favorites => favorites.map(favorite => favorite.car))
+
+      if (favoriteCars.length === 0) {
+        return {message:`Usuário de Id ${userId} não favoritou esse cadastro.`}
+      }
+
       return {user, favoriteCars}
     }   
-
 }
