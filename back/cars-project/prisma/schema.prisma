@@ -16,9 +16,10 @@ datasource db {
 model Users { 
   id Int @id @default(autoincrement())
   email String
-  cpf String? @unique // Cpf pode ficar nulo no banco de dados
+  cpf String
   password String
   nameUser String
+  favorite Favorite_Cars[]
   @@map("users")
 }
 
@@ -37,5 +38,15 @@ model Cars {
   km String
   price String?
   images String?
+  favorite Favorite_Cars[]
   @@map("cars")
+}
+
+model Favorite_Cars {
+  id Int @id @default(autoincrement())
+  userId Int
+  carId Int
+  client Users @relation(fields: [userId], references: [id])
+  car Cars @relation(fields: [carId], references: [id])
+  @@map("favorite_cars")
 }
